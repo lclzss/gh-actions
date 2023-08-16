@@ -37,7 +37,7 @@ jobs:
         uses: dependabot/fetch-metadata@v1.5.1
       - name: Enable auto-merge for Dependabot PRs
         env: 
-            GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+            GITHUB_TOKEN: ${{ steps.generate-token.outputs.token || secrets.envPAT || secrets.GITHUB_TOKEN}}
         run: gh pr merge --auto --merge "$PR_URL"
       - name: Approve patch updates
         if: ${{ steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' }}
